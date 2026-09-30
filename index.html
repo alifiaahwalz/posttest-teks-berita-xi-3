@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Test Menulis Teks Berita - Kelas XI</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #06b6d4;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --correct-color: #10b981;
+            --wrong-color: #ef4444;
+            --radius: 12px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Container Layout */
+        .main-container {
+            max-width: 900px;
+            margin: -1.5rem auto 2rem;
+            padding: 0 1rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* Card System */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Form Identitas */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Quiz Header & Info */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--bg-color);
+        }
+
+        .timer-badge {
+            background: #fef3c7;
+            color: #d97706;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Soal Navigation Bar */
+        .nav-numbers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .num-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .num-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .num-btn.answered {
+            background: #e0e7ff;
+            color: var(--primary-color);
+            border-color: #c7d2fe;
+        }
+
+        /* Question Area */
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .quote-box {
+            background: #f1f5f9;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.2rem;
+            font-style: italic;
+            color: #334155;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option-item {
+            border: 1.5px solid var(--border-color);
+            padding: 0.9rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .option-item:hover {
+            border-color: var(--primary-color);
+            background-color: #f4f4ff;
+        }
+
+        .option-item.selected {
+            border-color: var(--primary-color);
+            background-color: #e0e7ff;
+            font-weight: 500;
+        }
+
+        /* Navigation Buttons */
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        /* Result Area */
+        .result-box {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem auto;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .score-circle .number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .score-circle .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .status-msg {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        footer strong {
+            color: #f1f5f9;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.2rem;
+            }
+            .quiz-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header App -->
+    <header>
+        <h1><i class="fa-solid fa-newspaper"></i> TES ONLINE BAHASA INDONESIA</h1>
+        <p>Post-Test Menulis Teks Berita — Kelas XI</p>
+    </header>
+
+    <div class="main-container">
+        
+        <!-- Screen 1: Form Identitas -->
+        <div id="start-screen" class="card">
+            <h2 style="margin-bottom: 1rem; color: var(--primary-color);"><i class="fa-solid fa-user-pen"></i> Identitas Peserta Ujian</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Silakan isi data diri Anda dengan lengkap sebelum memulai tes.</p>
+            
+            <form id="identity-form" onsubmit="startQuiz(event)">
+                <div class="form-group">
+                    <label for="nama"><i class="fa-solid fa-user"></i> Nama Lengkap</label>
+                    <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda" required>
+                </div>
+                <div class="form-group">
+                    <label for="kelas"><i class="fa-solid fa-graduation-cap"></i> Kelas</label>
+                    <input type="text" id="kelas" placeholder="Contoh: XI MIPA 1" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    Mulai Tes Sekarang <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Screen 2: Area Soal -->
+        <div id="quiz-screen" class="card hidden">
+            <div class="quiz-header">
+                <div>
+                    <h3 id="user-display" style="font-size: 1rem; color: var(--text-muted);">Peserta: -</h3>
+                </div>
+                <div class="timer-badge">
+                    <i class="fa-solid fa-clock"></i> <span id="timer">30:00</span>
+                </div>
+            </div>
+
+            <!-- Navigasi Nomor Soal -->
+            <div class="nav-numbers" id="nav-numbers"></div>
+
+            <!-- Tampilan Soal -->
+            <div id="question-container">
+                <div class="question-text" id="question-text">Loading Soal...</div>
+                <div id="quote-container" class="quote-box hidden"></div>
+                <div class="options-list" id="options-list"></div>
+            </div>
+
+            <!-- Tombol Navigasi Soal -->
+            <div class="quiz-footer">
+                <button class="btn" id="prev-btn" onclick="prevQuestion()" style="background: #64748b;">
+                    <i class="fa-solid fa-chevron-left"></i> Sebelumnya
+                </button>
+                <button class="btn" id="next-btn" onclick="nextQuestion()">
+                    Berikutnya <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <button class="btn hidden" id="submit-btn" onclick="submitQuiz()" style="background: var(--correct-color);">
+                    Selesai & Kirim <i class="fa-solid fa-check-double"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Screen 3: Hasil Tes -->
+        <div id="result-screen" class="card hidden">
+            <div class="result-box">
+                <i class="fa-solid fa-circle-check" style="font-size: 3.5rem; color: var(--correct-color);"></i>
+                <h2 style="margin-top: 0.8rem;">Tes Selesai!</h2>
+                <p style="color: var(--text-muted);" id="result-user-info">Terima kasih telah menyelesaikan ujian.</p>
+
+                <div class="score-circle">
+                    <span class="number" id="final-score">0</span>
+                    <span class="label">Skor Maksimal 100</span>
+                </div>
+
+                <p id="score-details" style="font-weight: 500; margin-bottom: 0.5rem;"></p>
+                <p id="status-msg" class="status-msg"><i class="fa-solid fa-spinner fa-spin"></i> Mengirim hasil ke spreadsheet...</p>
+
+                <button class="btn" onclick="location.reload()" style="background: var(--primary-color); margin-top: 1.5rem;">
+                    <i class="fa-solid fa-rotate-right"></i> Ulangi Tes
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Copyright &copy; 2026 | Didesain untuk Evaluasi Pembelajaran Bahasa Indonesia</p>
+        <p style="margin-top: 0.3rem;">Disusun oleh: <strong>Alifia Ahwal Zakiyyah, S.Pd</strong></p>
+    </footer>
+
+    <!-- Script Logika Aplikasi -->
+    <script>
+        // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwwFTcZhl97P_3de1PmkCKKa9Ix_ZbMMOQo-GUWujqadZJKswRR0KxrmQVaPYj4LEEI/exec";
+
+        const questionsData = [
+            {
+                id: 1,
+                quote: '"Banjir merendam permukiman warga di Kelurahan Sukamaju sejak Senin dini hari akibat luapan Sungai Ciliwung."',
+                question: "Kalimat teks berita yang PALING SESUAI dengan fakta pada kutipan tersebut adalah ....",
+                options: [
+                    "Warga Kelurahan Sukamaju mengungsi karena takut banjir susulan.",
+                    "Banjir merendam permukiman warga Kelurahan Sukamaju sejak Senin dini hari akibat luapan Sungai Ciliwung.",
+                    "Sungai Ciliwung meluap setiap tahun dan sudah menjadi kebiasaan warga Sukamaju.",
+                    "Pemerintah setempat dinilai lambat menangani banjir di Kelurahan Sukamaju."
+                ],
+                answer: 1
+            },
+            {
+                id: 2,
+                quote: "",
+                question: "Agar isi teks berita yang ditulis benar-benar sesuai dengan video yang ditonton, hal yang sebaiknya dilakukan peserta didik sebelum menulis adalah ....",
+                options: [
+                    "menulis berdasarkan ingatan tanpa mencatat apa pun",
+                    "mencatat fakta-fakta penting yang terdapat dalam tayangan video",
+                    "menambahkan pendapat pribadi agar berita lebih menarik",
+                    "mengabaikan keterangan waktu dan tempat karena dianggap tidak penting"
+                ],
+                answer: 1
+            },
+            {
+                id: 3,
+                quote: "",
+                question: "Susunan struktur teks berita yang tepat, dari awal hingga akhir, adalah ....",
+                options: [
+                    "Tubuh berita – Judul – Teras berita – Ekor berita",
+                    "Ekor berita – Teras berita – Judul – Tubuh berita",
+                    "Judul – Teras berita (lead) – Tubuh berita – Ekor berita",
+                    "Judul – Ekor berita – Tubuh berita – Teras berita"
+                ],
+                answer: 2
+            },
+            {
+                id: 4,
+                quote: "",
+                question: "Bagian teks berita yang memuat inti atau ringkasan informasi terpenting dan biasanya terletak pada paragraf pertama disebut ....",
+                options: [
+                    "judul berita",
+                    "teras berita (lead)",
+                    "tubuh berita",
+                    "ekor berita"
+                ],
+                answer: 1
+            },
+            {
+                id: 5,
+                quote: "",
+                question: "Pola penyajikan teks berita yang menempatkan informasi paling penting di awal dan informasi pendukung di bagian akhir disebut pola ....",
+                options: [
+                    "piramida terbalik",
+                    "piramida normal",
+                    "alur mundur (flashback)",
+                    "sebab-akibat"
+                ],
+                answer: 0
+            },
+            {
+                id: 6,
+                quote: "",
+                question: "Manfaat utama penerapan pola piramida terbalik dalam penulisan teks berita adalah ....",
+                options: [
+                    "pembaca dapat menikmati unsur ketegangan cerita hingga akhir",
+                    "pembaca tetap memahami inti berita meskipun tidak membaca hingga selesai",
+                    "penulis dapat menyembunyikan informasi penting sampai bagian akhir",
+                    "berita menjadi lebih panjang dan mendetail"
+                ],
+                answer: 1
+            },
+            {
+                id: 7,
+                quote: "Berita diawali dengan menyampaikan dampak tanah longsor di Desa Makmur, kemudian menjelaskan lokasi serta waktu kejadian, dan diakhiri dengan riwayat bencana longsor di wilayah tersebut pada tahun-tahun sebelumnya.",
+                question: "Pola penyajian berita di atas dikembangkan berdasarkan ....",
+                options: [
+                    "urutan tempat",
+                    "urutan ketegangan",
+                    "urutan prioritas kepentingan informasi",
+                    "urutan penyelesaian masalah"
+                ],
+                answer: 2
+            },
+            {
+                id: 8,
+                quote: "",
+                question: "Perbedaan mendasar antara pola penyajian straight news (berita langsung) dengan penyajian teks fiksi/cerita naratif adalah ....",
+                options: [
+                    "berita langsung menempatkan klimaks/inti informasi di bagian awal, sedangkan cerita fiksi menempatkannya di akhir",
+                    "cerita fiksi tidak membutuhkan keterangan waktu dan tempat, sedangkan berita membutuhkan",
+                    "berita langsung disajikan secara kronologis dari awal kejadian hingga selesai tanpa rekayasa",
+                    "cerita fiksi ditulis dengan bahasa baku, sedangkan berita disajikan dengan bahasa santai"
+                ],
+                answer: 0
+            },
+            {
+                id: 9,
+                quote: "",
+                question: "Kalimat berikut yang menggunakan kata baku dan struktur yang efektif adalah ....",
+                options: [
+                    "Pihak kepolisian sudah menghimbau warga untuk supaya tidak panik.",
+                    "Kepolisian mengimbau warga agar tidak panik menghadapi situasi tersebut.",
+                    "Pihak kepolisian telah menghimbau agar supaya warga jangan panik.",
+                    "Warga di himbau oleh kepolisian supaya tidak boleh panik."
+                ],
+                answer: 1
+            },
+            {
+                id: 10,
+                quote: "",
+                question: "Konjungsi yang tepat digunakan untuk menunjukkan urutan waktu kejadian dalam sebuah teks berita adalah ....",
+                options: [
+                    "walaupun, meskipun",
+                    "seandainya, andaikan",
+                    "kemudian, setelah itu",
+                    "atau, maupun"
+                ],
+                answer: 2
+            },
+            {
+                id: 11,
+                quote: "",
+                question: "Dalam penulisan teks berita, penggunaan kalimat langsung biasanya ditandai dengan tanda baca ....",
+                options: [
+                    'titik dua ( : )',
+                    'petik dua ( " ... " )',
+                    'kurung siku ( [ ... ] )',
+                    'tanda hubung ( - )'
+                ],
+                answer: 1
+            },
+            {
+                id: 12,
+                quote: '"Siswa kelas XI menyimak tayangan video berita di laboratorium komputer."',
+                question: "Kata kerja (verba) transitif/aktif yang terdapat dalam kalimat di atas adalah ....",
+                options: [
+                    "berita",
+                    "siswa",
+                    "menyimak",
+                    "laboratorium"
+                ],
+                answer: 2
+            },
+            {
+                id: 13,
+                quote: "",
+                question: "Unsur berita yang menjawab pertanyaan “mengapa peristiwa itu terjadi” disebut unsur ....",
+                options: [
+                    "what (apa)",
+                    "why (mengapa)",
+                    "when (kapan)",
+                    "how (bagaimana)"
+                ],
+                answer: 1
+            },
+            {
+                id: 14,
+                quote: '"Kebakaran yang menghanguskan tiga petak rumah warga di Jalan Melati, Kecamatan Sukajadi, terjadi pada Rabu (14/10) sore akibat korsleting listrik."',
+                question: 'Unsur berita “where (di mana)” pada kutipan tersebut ditunjukkan oleh informasi ....',
+                options: [
+                    "tiga petak rumah warga",
+                    "Rabu (14/10) sore",
+                    "Jalan Melati, Kecamatan Sukajadi",
+                    "akibat korsleting listrik"
+                ],
+                answer: 2
+            },
+            {
+                id: 15,
+                quote: "",
+                question: "Bagian teks berita yang berisi informasi tambahan yang sifatnya kurang penting atau pelengkap dinamakan ....",
+                options: [
+                    "judul berita",
+                    "teras berita (lead)",
+                    "tubuh berita",
+                    "ekor berita"
+                ],
+                answer: 3
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questionsData.length).fill(null);
+        let studentData = { nama: "", kelas: "" };
+        let timerInterval = null;
+        let timeLeft = 30 * 60; // 30 Menit
+
+        function startQuiz(e) {
+            e.preventDefault();
+            studentData.nama = document.getElementById('nama').value;
+            studentData.kelas = document.getElementById('kelas').value;
+
+            document.getElementById('user-display').innerText = `Peserta: ${studentData.nama} (${studentData.kelas})`;
+
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+
+            renderNavNumbers();
+            loadQuestion();
+            startTimer();
+        }
+
+        function renderNavNumbers() {
+            const navContainer = document.getElementById('nav-numbers');
+            navContainer.innerHTML = '';
+
+            questionsData.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `num-btn ${idx === currentQuestionIndex ? 'active' : ''} ${userAnswers[idx] !== null ? 'answered' : ''}`;
+                btn.innerText = idx + 1;
+                btn.onclick = () => jumpToQuestion(idx);
+                navContainer.appendChild(btn);
+            });
+        }
+
+        function loadQuestion() {
+            const q = questionsData[currentQuestionIndex];
+            document.getElementById('question-text').innerText = `${q.id}. ${q.question}`;
+
+            const quoteContainer = document.getElementById('quote-container');
+            if (q.quote) {
+                quoteContainer.innerText = q.quote;
+                quoteContainer.classList.remove('hidden');
+            } else {
+                quoteContainer.classList.add('hidden');
+            }
+
+            const optionsList = document.getElementById('options-list');
+            optionsList.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((opt, idx) => {
+                const isSelected = userAnswers[currentQuestionIndex] === idx;
+                const optionDiv = document.createElement('div');
+                optionDiv.className = `option-item ${isSelected ? 'selected' : ''}`;
+                optionDiv.onclick = () => selectOption(idx);
+
+                optionDiv.innerHTML = `
+                    <div style="font-weight:600; width:20px;">${optionLabels[idx]}.</div>
+                    <div style="flex:1;">${opt}</div>
+                `;
+                optionsList.appendChild(optionDiv);
+            });
+
+            document.getElementById('prev-btn').classList.toggle('hidden', currentQuestionIndex === 0);
+            
+            if (currentQuestionIndex === questionsData.length - 1) {
+                document.getElementById('next-btn').classList.add('hidden');
+                document.getElementById('submit-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('next-btn').classList.remove('hidden');
+                document.getElementById('submit-btn').classList.add('hidden');
+            }
+
+            renderNavNumbers();
+        }
+
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            loadQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questionsData.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        }
+
+        function jumpToQuestion(index) {
+            currentQuestionIndex = index;
+            loadQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                document.getElementById('timer').innerText = `${minutes}:${seconds}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Waktu ujian telah habis!');
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function submitQuiz() {
+            if (userAnswers.includes(null)) {
+                const confirmSubmit = confirm('Masih ada soal yang belum dijawab. Yakin ingin menyelesaikan tes?');
+                if (!confirmSubmit) return;
+            }
+
+            clearInterval(timerInterval);
+
+            // Hitung Jawaban Benar
+            let correctCount = 0;
+            questionsData.forEach((q, idx) => {
+                if (userAnswers[idx] === q.answer) {
+                    correctCount++;
+                }
+            });
+
+            // Perhitungan Skor Bulat Maksimal 100
+            const finalScore = Math.round((correctCount / questionsData.length) * 100);
+
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('result-user-info').innerText = `${studentData.nama} (${studentData.kelas})`;
+            document.getElementById('final-score').innerText = finalScore;
+            document.getElementById('score-details').innerText = `Skor Anda: ${finalScore} / 100 (Benar ${correctCount} dari ${questionsData.length} Soal)`;
+
+            // Kirim Data ke Google Spreadsheet
+            sendDataToSpreadsheet({
+                nama: studentData.nama,
+                kelas: studentData.kelas,
+                nilai: finalScore,
+                benar: correctCount,
+                total: questionsData.length
+            });
+        }
+
+        function sendDataToSpreadsheet(data) {
+            const statusMsg = document.getElementById('status-msg');
+            
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_URL_WEB_APP_GOOGLE_SCRIPT_DI_SINI")) {
+                statusMsg.innerHTML = `<span style="color:var(--wrong-color);"><i class="fa-solid fa-triangle-exclamation"></i> Hasil belum terhubung ke Google Sheets (URL Apps Script belum dipasang).</span>`;
+                return;
+            }
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                statusMsg.innerHTML = `<span style="color:var(--correct-color);"><i class="fa-solid fa-circle-check"></i> Hasil tes telah berhasil disimpan ke Google Sheets!</span>`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                statusMsg.innerHTML = `<span style="color:var(--wrong-color);"><i class="fa-solid fa-circle-xmark"></i> Gagal mengirim data ke spreadsheet.</span>`;
+            });
+        }
+    </script>
+</body>
+</html>
